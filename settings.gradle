@@ -1,2 +1,4 @@
 rootProject.name = 'ratpack'
-include 'service'
+include 'service', 
+        'service-functional'
+
