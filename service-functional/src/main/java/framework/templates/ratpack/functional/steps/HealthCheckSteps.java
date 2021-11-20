@@ -1,7 +1,8 @@
 package framework.templates.ratpack.functional.steps;
 
-import cucumber.api.java8.En;
 import framework.templates.ratpack.functional.config.LocalApplicationInstanceManager;
+import io.cucumber.guice.ScenarioScoped;
+import io.cucumber.java8.En;
 import ratpack.http.client.ReceivedResponse;
 import ratpack.test.http.TestHttpClient;
 
@@ -10,6 +11,7 @@ import javax.inject.Inject;
 import static org.junit.Assert.assertEquals;
 import static ratpack.http.Status.OK;
 
+@ScenarioScoped
 public class HealthCheckSteps implements En {
 
     private TestHttpClient httpClient;

@@ -10,8 +10,7 @@ import static ratpack.http.Status.OK;
 
 public class RatpackApplicationTest {
 
-    MainClassApplicationUnderTest ratpackApplication
-            = new MainClassApplicationUnderTest(RatpackApplication.class);
+    MainClassApplicationUnderTest ratpackApplication = new MainClassApplicationUnderTest(RatpackApplication.class);
 
     @Test
     public void givenStatusUrl_getSuccessResponse() {
@@ -28,5 +27,4 @@ public class RatpackApplicationTest {
         assertEquals("Client error 404", response.getBody().getText());
         assertEquals(NOT_FOUND, response.getStatus());
     }
-
 }

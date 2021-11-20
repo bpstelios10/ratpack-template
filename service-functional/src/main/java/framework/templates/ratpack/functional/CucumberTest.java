@@ -4,8 +4,7 @@ public class CucumberTest {
 
     public static void main(String... args) {
         String[] newArgs = new String[]{
-                "--strict",
-                "--tags", "~@wip",
+                "--tags", "not @wip",
                 "--plugin", "pretty",
                 "--plugin", "html:build/cucumber-report",
                 "--plugin", "junit:build/junit-test-report.xml",
@@ -14,6 +13,6 @@ public class CucumberTest {
                 "service-functional/src/test/resources/features/"
         };
 
-        cucumber.api.cli.Main.main(newArgs);
+        io.cucumber.core.cli.Main.main(newArgs);
     }
 }

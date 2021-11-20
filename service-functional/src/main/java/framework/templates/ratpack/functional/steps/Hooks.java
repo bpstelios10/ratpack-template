@@ -1,35 +1,28 @@
 package framework.templates.ratpack.functional.steps;
 
-import cucumber.api.java.Before;
-import cucumber.runtime.java.guice.ScenarioScoped;
 import framework.templates.ratpack.functional.config.LocalApplicationInstanceManager;
+import io.cucumber.guice.ScenarioScoped;
+import io.cucumber.java8.En;
 import lombok.Getter;
 
 import javax.inject.Inject;
 
 @ScenarioScoped
 @Getter
-public class Hooks {
+public class Hooks implements En {
 
     private static boolean dunit = false;
 
-    private LocalApplicationInstanceManager localApplicationInstanceManager;
-
     @Inject
     public Hooks(LocalApplicationInstanceManager localApplicationInstanceManager) {
-        this.localApplicationInstanceManager = localApplicationInstanceManager;
-    }
-
-    @Before
-    public void beforeAll() {
-        if (!dunit) {
-            Runtime.getRuntime().addShutdownHook(new Thread(() -> {
-                //After all commands can go here
-                localApplicationInstanceManager.stopApp();
-            }));
-            //Before all commands can go here
-            localApplicationInstanceManager.startApp();
-            dunit = true;
-        }
+        Before(() -> {
+            if (!dunit) {
+                //After all commands can go in addShutdownHook
+                Runtime.getRuntime().addShutdownHook(new Thread(localApplicationInstanceManager::stopApp));
+                //Before all commands can go here
+                localApplicationInstanceManager.startApp();
+                dunit = true;
+            }
+        });
     }
 }

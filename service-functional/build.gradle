@@ -5,34 +5,36 @@ repositories {
 }
 
 dependencies {
-    compile project(':service')
+    implementation project(':service')
+    implementation ratpack.dependency("test")
+    implementation ratpack.dependency('guice')
 
-    compile ratpack.dependency("test")
+    implementation 'io.cucumber:cucumber-java8:7.0.0'
+    implementation 'io.cucumber:cucumber-junit:7.0.0'
+    implementation 'io.cucumber:cucumber-core:7.0.0'
+    implementation 'io.cucumber:cucumber-guice:7.0.0'
+    implementation 'io.cucumber:gherkin:22.0.0'
+    implementation 'com.jayway.awaitility:awaitility:1.7.0'
 
-    compile 'com.google.inject:guice:4.1.0'
-    compile group: 'io.cucumber', name: 'cucumber-java8', version: '4.2.6'
-    compile group: 'io.cucumber', name: 'cucumber-junit', version: '4.2.6'
-    compile group: 'io.cucumber', name: 'cucumber-core', version: '4.2.6'
-    compile group: 'io.cucumber', name: 'cucumber-guice', version: '4.2.6'
-    compile group: 'io.cucumber', name: 'gherkin', version: '5.1.0'
-    compile 'com.jayway.awaitility:awaitility:1.7.0'
-
-    testCompile group: 'junit', name: 'junit', version: '4.12'
+    testImplementation 'junit:junit:4.13.2'
 }
 
-mainClassName = 'framework.templates.ratpack.functional.CucumberTest'
+application {
+    mainClassName = 'framework.templates.ratpack.functional.CucumberTest'
+}
 
 shadowJar {
-    archiveName = "service-functional.jar"
+    archiveFileName = "service-functional.jar"
 }
+jar.enabled = false
+jar.dependsOn 'shadowJar'
 
 task localFunctional(type: JavaExec) {
     group = 'Verification'
-    main = 'cucumber.api.cli.Main'
     classpath = project.sourceSets.test.runtimeClasspath
+    getMainClass().set('io.cucumber.core.cli.Main')
     args = [
-            "--strict",
-            "--tags", "~@wip",
+            "--tags", "not @wip",
             "--plugin", "pretty",
             "--plugin", "html:build/cucumber-report",
             "--plugin", "junit:build/junit-test-report.xml",

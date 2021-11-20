@@ -1,14 +1,20 @@
 repositories {
-    jcenter()
+    maven { url 'https://plugins.gradle.org/m2/' }
 }
 
 dependencies {
-    testCompile 'junit:junit:4.11'
-    runtime "org.slf4j:slf4j-simple:1.7.21"
+    implementation ratpack.dependency('guice')
+
+    implementation 'org.slf4j:slf4j-simple:1.7.32'
+    testImplementation 'junit:junit:4.13.2'
 }
 
-mainClassName = 'framework.templates.ratpack.service.RatpackApplication'
+application {
+    mainClassName = 'framework.templates.ratpack.service.RatpackApplication'
+}
 
 shadowJar {
-    archiveName = "service.jar"
+    archiveFileName = "service.jar"
 }
+jar.enabled = false
+jar.dependsOn 'shadowJar'
