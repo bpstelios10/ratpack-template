@@ -10,11 +10,11 @@ import static ratpack.http.Status.OK;
 
 public class RatpackApplicationTest {
 
-    MainClassApplicationUnderTest ratpackApplication = new MainClassApplicationUnderTest(RatpackApplication.class);
+    static MainClassApplicationUnderTest ratpackApplication = new MainClassApplicationUnderTest(RatpackApplication.class);
 
     @Test
     public void givenStatusUrl_getSuccessResponse() {
-        ReceivedResponse response = ratpackApplication.getHttpClient().get("/status");
+        ReceivedResponse response = ratpackApplication.getHttpClient().get("/private/status");
 
         assertEquals("OK", response.getBody().getText());
         assertEquals(OK, response.getStatus());

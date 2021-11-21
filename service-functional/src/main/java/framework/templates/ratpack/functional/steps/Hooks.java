@@ -3,12 +3,10 @@ package framework.templates.ratpack.functional.steps;
 import framework.templates.ratpack.functional.config.LocalApplicationInstanceManager;
 import io.cucumber.guice.ScenarioScoped;
 import io.cucumber.java8.En;
-import lombok.Getter;
 
 import javax.inject.Inject;
 
 @ScenarioScoped
-@Getter
 public class Hooks implements En {
 
     private static boolean dunit = false;

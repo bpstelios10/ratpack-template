@@ -2,20 +2,18 @@ package framework.templates.ratpack.functional.config;
 
 import com.jayway.awaitility.Awaitility;
 import com.jayway.awaitility.Duration;
+import framework.templates.ratpack.functional.model.ServiceEndpoints;
 import framework.templates.ratpack.service.RatpackApplication;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import ratpack.test.MainClassApplicationUnderTest;
 
-import javax.inject.Singleton;
-
 import static ratpack.http.Status.OK;
 
 @Slf4j
-@Singleton
-@Getter
 public class LocalApplicationInstanceManager {
 
+    @Getter
     private MainClassApplicationUnderTest applicationUnderTest;
 
     public void startApp() {
@@ -37,9 +35,9 @@ public class LocalApplicationInstanceManager {
 
     private Boolean appIsReady() {
         try {
-            return applicationUnderTest.getHttpClient().get("/status").getStatusCode() == OK.getCode();
+            return applicationUnderTest.getHttpClient().get(ServiceEndpoints.PRIVATE_STATUS.getPath()).getStatusCode() == OK.getCode();
         } catch (Exception e) {
-            log.error("Exception while calling /status", e);
+            log.error("Exception while calling /private/status", e);
             return false;
         }
     }
