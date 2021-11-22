@@ -1,4 +1,5 @@
 rootProject.name = 'ratpack'
 include 'service', 
-        'service-functional'
+        'service-functional',
+        'service-mocks'
 

@@ -1,0 +1,38 @@
+plugins {
+    id 'application'
+}
+
+mainClassName = "com.github.tomakehurst.wiremock.standalone.WireMockServerRunner"
+project.version = project.properties.getOrDefault('testVersion', "0.1.0")
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation ("com.github.tomakehurst:wiremock:2.23.2")
+    implementation  "ch.qos.logback:logback-classic:1.2.3"
+    implementation "net.logstash.logback:logstash-logback-encoder:4.11"
+
+    testImplementation group: 'junit', name: 'junit', version: '4.12'
+}
+
+shadowJar {
+    archiveFileName = 'service-mocks.jar'
+}
+jar.enabled = false
+jar.dependsOn 'shadowJar'
+
+run {
+    args = [
+            '--port=9090',
+            '--global-response-templating',
+            '--container-threads=200',
+            '--jetty-acceptor-threads=50',
+            '--async-response-enabled=true',
+            '--async-response-threads=200',
+//            '--max-request-journal-entries=10000',
+            '--no-request-journal',
+            '--root-dir=build/resources/main'
+    ]
+}
