@@ -4,6 +4,7 @@ import org.junit.Test;
 import ratpack.http.client.ReceivedResponse;
 import ratpack.test.MainClassApplicationUnderTest;
 
+import static framework.templates.ratpack.service.web.model.Endpoint.PRIVATE_STATUS;
 import static org.junit.Assert.assertEquals;
 import static ratpack.http.Status.NOT_FOUND;
 import static ratpack.http.Status.OK;
@@ -14,7 +15,7 @@ public class RatpackApplicationTest {
 
     @Test
     public void givenStatusUrl_getSuccessResponse() {
-        ReceivedResponse response = ratpackApplication.getHttpClient().get("/private/status");
+        ReceivedResponse response = ratpackApplication.getHttpClient().get(PRIVATE_STATUS.getPath());
 
         assertEquals("OK", response.getBody().getText());
         assertEquals(OK, response.getStatus());

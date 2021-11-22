@@ -4,9 +4,10 @@ import lombok.Getter;
 
 @Getter
 public enum ServiceEndpoints {
-    PRIVATE_STATUS("/private/status"),
-    PRIVATE_METRICS("/private/metrics"),
-    PRIVATE_HEALTHCHECK("/private/healthcheck");
+    PRIVATE_STATUS("/trolltrump/private/status"),
+    PRIVATE_METRICS("/trolltrump/private/metrics"),
+    PRIVATE_HEALTHCHECK("/trolltrump/private/healthcheck"),
+    QUOTE_RANDOM("/trolltrump/quote/random");
 
     private final String path;
 

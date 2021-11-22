@@ -1,10 +1,7 @@
 package framework.templates.ratpack.service.modules;
 
 import com.google.inject.AbstractModule;
-import framework.templates.ratpack.service.web.EndpointMetricsRecordingHandler;
-import framework.templates.ratpack.service.web.EndpointsResolver;
-import framework.templates.ratpack.service.web.HealthCheckHandler;
-import framework.templates.ratpack.service.web.PrometheusMetricsHandler;
+import framework.templates.ratpack.service.web.*;
 
 import javax.inject.Singleton;
 
@@ -15,5 +12,6 @@ public class WebModule extends AbstractModule {
         bind(PrometheusMetricsHandler.class).in(Singleton.class);
         bind(EndpointMetricsRecordingHandler.class).in(Singleton.class);
         bind(EndpointsResolver.class).in(Singleton.class);
+        bind(QuotesHandler.class).in(Singleton.class);
     }
 }

@@ -7,5 +7,6 @@ public class ApplicationModule extends AbstractModule {
     public void configure() {
         install(new WebModule());
         install(new MetricsModule());
+        install(new ServicesModule());
     }
 }
