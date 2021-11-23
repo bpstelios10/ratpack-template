@@ -1,7 +1,5 @@
-package framework.templates.ratpack.service.services;
+package framework.templates.ratpack.service.clients.httpclient;
 
-import framework.templates.ratpack.service.clients.httpclient.HttpClientFactory;
-import framework.templates.ratpack.service.clients.httpclient.QuoteRandomDownstreamProperties;
 import org.json.JSONObject;
 import ratpack.exec.Promise;
 import ratpack.http.client.HttpClient;

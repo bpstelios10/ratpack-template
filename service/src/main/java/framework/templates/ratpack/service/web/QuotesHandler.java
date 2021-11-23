@@ -1,7 +1,7 @@
 package framework.templates.ratpack.service.web;
 
 
-import framework.templates.ratpack.service.services.QuoteRandomDownstreamService;
+import framework.templates.ratpack.service.clients.httpclient.QuoteRandomDownstreamService;
 import ratpack.exec.Promise;
 import ratpack.handling.Context;
 import ratpack.handling.Handler;
