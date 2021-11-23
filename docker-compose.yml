@@ -6,9 +6,11 @@ services:
     ports:
       - "9090:9090"
     environment:
-      - DEPLOYMENT_ENVIRONMENT=local
+      - DEPLOYMENT_ENVIRONMENT=docker
 
   service:
     build: service
     ports:
-    - "5050:5050"
+      - "5050:5050"
+    environment:
+      - RATPACK_SERVICE__QUOTE_RANDOM__HOST=mocks

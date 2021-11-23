@@ -1,0 +1,6 @@
+service:
+  quoteRandom:
+    scheme: http
+    host: localhost
+    port: 9090
+    path: /random/quote
