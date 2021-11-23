@@ -8,5 +8,6 @@ public class ApplicationModule extends AbstractModule {
         install(new WebModule());
         install(new MetricsModule());
         install(new ServicesModule());
+        install(new ClientsModule());
     }
 }

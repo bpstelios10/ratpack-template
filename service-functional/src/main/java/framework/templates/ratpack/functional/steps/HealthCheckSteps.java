@@ -1,6 +1,6 @@
 package framework.templates.ratpack.functional.steps;
 
-import framework.templates.ratpack.functional.config.LocalApplicationInstanceManager;
+import framework.templates.ratpack.functional.config.LocalStartupManager;
 import framework.templates.ratpack.functional.model.ServiceEndpoints;
 import io.cucumber.java8.En;
 import ratpack.http.client.ReceivedResponse;
@@ -18,10 +18,10 @@ public class HealthCheckSteps implements En {
     private ReceivedResponse receivedResponse;
 
     @Inject
-    public HealthCheckSteps(LocalApplicationInstanceManager localApplicationInstanceManager) {
+    public HealthCheckSteps(LocalStartupManager localStartupManager) {
 
         When("^the client intends to call (.*) endpoint$", (String endpoint) -> {
-            httpClient = localApplicationInstanceManager.getApplicationUnderTest().getHttpClient();
+            httpClient = localStartupManager.getApplicationUnderTest().getHttpClient();
             receivedResponse = httpClient.get(ServiceEndpoints.valueOf(endpoint).getPath());
         });
 

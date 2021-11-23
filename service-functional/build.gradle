@@ -6,6 +6,8 @@ repositories {
 
 dependencies {
     implementation project(':service')
+    implementation project(':service-mocks')
+    implementation project(":service-mocks").sourceSets.main.output
     implementation ratpack.dependency("test")
     implementation ratpack.dependency('guice')
 

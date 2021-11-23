@@ -1,6 +1,6 @@
 package framework.templates.ratpack.functional.steps;
 
-import framework.templates.ratpack.functional.config.LocalApplicationInstanceManager;
+import framework.templates.ratpack.functional.config.LocalStartupManager;
 import io.cucumber.guice.ScenarioScoped;
 import io.cucumber.java8.En;
 
@@ -12,15 +12,23 @@ public class Hooks implements En {
     private static boolean dunit = false;
 
     @Inject
-    public Hooks(LocalApplicationInstanceManager localApplicationInstanceManager) {
+    public Hooks(LocalStartupManager localStartupManager) {
         Before(() -> {
             if (!dunit) {
-                //After all commands can go in addShutdownHook
-                Runtime.getRuntime().addShutdownHook(new Thread(localApplicationInstanceManager::stopApp));
-                //Before all commands can go here
-                localApplicationInstanceManager.startApp();
+                Runtime.getRuntime().addShutdownHook(new Thread(() -> doAfterAllTestsFinish(localStartupManager)));
+                doBeforeAnyTestStart(localStartupManager);
                 dunit = true;
             }
         });
+    }
+
+    private void doBeforeAnyTestStart(LocalStartupManager localStartupManager) {
+        localStartupManager.startMocks();
+        localStartupManager.startApp();
+    }
+
+    private void doAfterAllTestsFinish(LocalStartupManager localStartupManager) {
+        localStartupManager.stopApp();
+        localStartupManager.stopMocks();
     }
 }

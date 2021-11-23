@@ -1,7 +1,7 @@
 package framework.templates.ratpack.functional.metrics;
 
 import com.google.inject.Inject;
-import framework.templates.ratpack.functional.config.LocalApplicationInstanceManager;
+import framework.templates.ratpack.functional.config.LocalStartupManager;
 import framework.templates.ratpack.functional.model.ServiceEndpoints;
 import ratpack.http.client.ReceivedResponse;
 import ratpack.test.http.TestHttpClient;
@@ -17,11 +17,11 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class ServiceMetricsProvider {
 
     private TestHttpClient serviceClient;
-    private final LocalApplicationInstanceManager localApplicationInstanceManager;
+    private final LocalStartupManager localStartupManager;
 
     @Inject
-    public ServiceMetricsProvider(LocalApplicationInstanceManager localApplicationInstanceManager) {
-        this.localApplicationInstanceManager = localApplicationInstanceManager;
+    public ServiceMetricsProvider(LocalStartupManager localStartupManager) {
+        this.localStartupManager = localStartupManager;
     }
 
     public BigDecimal getCurrentMetricValue(String metricKey) {
@@ -38,7 +38,7 @@ public class ServiceMetricsProvider {
 
     private String getMetrics() {
         if (serviceClient == null) {
-            serviceClient = localApplicationInstanceManager.getApplicationUnderTest().getHttpClient();
+            serviceClient = localStartupManager.getApplicationUnderTest().getHttpClient();
         }
         ReceivedResponse receivedResponse = serviceClient.get(ServiceEndpoints.PRIVATE_METRICS.getPath());
 

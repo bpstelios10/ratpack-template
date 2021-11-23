@@ -1,5 +1,10 @@
 package framework.templates.ratpack.functional.config;
 
+import com.github.tomakehurst.wiremock.WireMockServer;
+import com.github.tomakehurst.wiremock.common.ClasspathFileSource;
+import com.github.tomakehurst.wiremock.common.ConsoleNotifier;
+import com.github.tomakehurst.wiremock.core.WireMockConfiguration;
+import com.github.tomakehurst.wiremock.standalone.JsonFileMappingsSource;
 import com.jayway.awaitility.Awaitility;
 import com.jayway.awaitility.Duration;
 import framework.templates.ratpack.service.RatpackApplication;
@@ -11,10 +16,11 @@ import static framework.templates.ratpack.functional.model.ServiceEndpoints.PRIV
 import static ratpack.http.Status.OK;
 
 @Slf4j
-public class LocalApplicationInstanceManager {
+public class LocalStartupManager {
 
     @Getter
     private MainClassApplicationUnderTest applicationUnderTest;
+    private WireMockServer mockServer;
 
     public void startApp() {
         applicationUnderTest = new MainClassApplicationUnderTest(RatpackApplication.class);
@@ -30,6 +36,26 @@ public class LocalApplicationInstanceManager {
     public void stopApp() {
         if (applicationUnderTest != null) {
             applicationUnderTest.stop();
+        }
+    }
+
+    public void startMocks() {
+        if (mockServer == null) {
+            mockServer = new WireMockServer(WireMockConfiguration
+                    .wireMockConfig()
+                    .notifier(new ConsoleNotifier(true))
+                    .port(9090)
+                    .mappingSource(new JsonFileMappingsSource(new ClasspathFileSource("mappings")))
+            );
+        }
+        if (!mockServer.isRunning()) {
+            mockServer.start();
+        }
+    }
+
+    public void stopMocks() {
+        if (mockServer != null) {
+            mockServer.stop();
         }
     }
 

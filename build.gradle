@@ -15,7 +15,7 @@ wrapper {
 }
 
 subprojects {
-    apply plugin: 'java'
+    apply plugin: 'java-library'
     apply plugin: 'io.franzbecker.gradle-lombok'
     apply plugin: "io.ratpack.ratpack-java"
     apply plugin: "com.github.johnrengelman.shadow"
